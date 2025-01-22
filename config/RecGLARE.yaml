@@ -13,12 +13,12 @@ loss_type: 'CE'                 # (str) Type of loss function. Range in ['BPR', 
 dataset: ml-1m
 MAX_ITEM_LIST_LENGTH: 200
 
+#dataset: ml-20m
+#MAX_ITEM_LIST_LENGTH: 200
+
 #dataset: ml-32m
 #MAX_ITEM_LIST_LENGTH: 200
 
-#dataset: gowalla-m
-#MAX_ITEM_LIST_LENGTH: 100
-#
 USER_ID_FIELD: user_id
 ITEM_ID_FIELD: item_id
 load_col:
