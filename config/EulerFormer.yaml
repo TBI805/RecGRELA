@@ -58,7 +58,7 @@ train_batch_size: 2048
 learner: adam
 learning_rate: 0.001
 eval_step: 1
-stopping_step: 10
+stopping_step: 20
 train_neg_sample_args: ~
 
 # evalution settings
