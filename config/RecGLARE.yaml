@@ -1,7 +1,7 @@
 gpu_id: '0'
 log_wandb: False
 
-# GLARE settings
+# RecGLARE settings
 hidden_size: 64                 # (int) Number of features in the hidden state.
 num_heads: 4
 num_layers: 4                   # (int) Number of Mamba layers.
