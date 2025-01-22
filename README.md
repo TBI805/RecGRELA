@@ -14,9 +14,9 @@ Here are our main environment dependencies for running the repository：
 - casual-conv1d 1.4.0
 - timm 1.0.11
 
-### DataSets
+### Datasets
 
-ML-20M, ML-32M, and Netflix datasets can be downloaded from [Google Drive](https://drive.google.com/drive/folders/188p9b-OkI1IZfg248AvkqFNiuHkRVdrJ?usp=drive_link).
+ML-20M, and Netflix datasets can be downloaded from [RecSysDatasets](https://github.com/RUCAIBox/RecSysDatasets). ML-32M can be found at [MovieLens](https://grouplens.org/datasets/movielens/), and processed by [conversion tools](https://github.com/RUCAIBox/RecDatasets/tree/master/conversion_tools).
 
 ### Run
 
