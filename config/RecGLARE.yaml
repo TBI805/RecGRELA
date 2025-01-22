@@ -1,0 +1,69 @@
+gpu_id: '0'
+log_wandb: False
+
+# GLARE settings
+hidden_size: 64                 # (int) Number of features in the hidden state.
+num_heads: 4
+num_layers: 5                   # (int) Number of Mamba layers.
+dropout_prob: 0.1               # (float) Dropout rate.
+drop_path: 0.1
+loss_type: 'CE'                 # (str) Type of loss function. Range in ['BPR', 'CE'].
+
+# dataset settings
+dataset: ml-1m
+MAX_ITEM_LIST_LENGTH: 200
+
+#dataset: ml-32m
+#MAX_ITEM_LIST_LENGTH: 200
+
+#dataset: gowalla-m
+#MAX_ITEM_LIST_LENGTH: 100
+#
+USER_ID_FIELD: user_id
+ITEM_ID_FIELD: item_id
+load_col:
+    inter: [user_id, item_id, timestamp]
+
+user_inter_num_interval: "[5,inf)"
+item_inter_num_interval: "[5,inf)"
+
+# Netflix dateset
+#dataset: netflix
+#MAX_ITEM_LIST_LENGTH: 200
+#USER_ID_FIELD: user_id
+#ITEM_ID_FIELD: item_id
+#load_col:
+#    inter: [item_id, user_id, timestamp]
+#
+#user_inter_num_interval: "[50,inf)"
+#item_inter_num_interval: "[50,15000]"
+
+
+# LFM1b-Artists dateset
+#dataset: lfm1b-artists
+#MAX_ITEM_LIST_LENGTH: 200
+#
+#USER_ID_FIELD: user_id
+#ITEM_ID_FIELD: artists_id
+#load_col:
+#    inter: [user_id, artists_id, timestamp]
+#
+#user_inter_num_interval: "[5,500]"
+#item_inter_num_interval: "[5,inf)"
+
+
+# training settings
+epochs: 300
+train_batch_size: 2048
+learner: adam
+learning_rate: 0.001
+eval_step: 1
+stopping_step: 20
+train_neg_sample_args: ~
+
+# evalution settings
+metrics: ['Hit', 'NDCG', 'MRR']
+valid_metric: NDCG@10
+eval_batch_size: 4096
+weight_decay: 0.0
+topk: 10
