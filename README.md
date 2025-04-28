@@ -2,7 +2,7 @@
 
 ## Overall
 <p align="center">
-    <img src="img/tim4rec.png" alt="overview_of_tim4rec"/>
+    <img src="img/RecGRELA.png" alt="overview_of_tim4rec"/>
   </p>
 
 ### Requirements
