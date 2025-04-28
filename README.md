@@ -1,7 +1,9 @@
 # RecGRELA
 
-## Usage
-
+## Overall
+<p align="center">
+    <img src="img/tim4rec.png" alt="overview_of_tim4rec"/>
+  </p>
 
 ### Requirements
 
