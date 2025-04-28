@@ -23,7 +23,7 @@ Here are our main environment dependencies for running the repository：
 ML-20M, and Netflix datasets can be downloaded from [RecSysDatasets](https://github.com/RUCAIBox/RecSysDatasets). ML-32M can be found at [MovieLens](https://grouplens.org/datasets/movielens/) and processed by [conversion tools](https://github.com/RUCAIBox/RecDatasets/tree/master/conversion_tools).
 
 ### 4. Run
-
+To reproduce the results reported in our paper, just run it:
 ```
 python run_RecGRELA.py
 ```
