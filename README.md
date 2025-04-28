@@ -1,11 +1,11 @@
 # RecGRELA
 
-## Overall
+## 1. Overall
 <p align="center">
     <img src="img/RecGRELA.png" alt="overview_of_tim4rec"/>
   </p>
 
-### Requirements
+### 2. Requirements
 
 Here are our main environment dependencies for running the repository：
 - NVIDIA-SMI 535.183.01
@@ -16,11 +16,11 @@ Here are our main environment dependencies for running the repository：
 - casual-conv1d 1.4.0
 - timm 1.0.11
 
-### Datasets
+### 3. Datasets
 
 ML-20M, and Netflix datasets can be downloaded from [RecSysDatasets](https://github.com/RUCAIBox/RecSysDatasets). ML-32M can be found at [MovieLens](https://grouplens.org/datasets/movielens/) and processed by [conversion tools](https://github.com/RUCAIBox/RecDatasets/tree/master/conversion_tools).
 
-### Run
+### 4. Run
 
 ```
 python run_RecGRELA.py
