@@ -29,8 +29,8 @@ class RecGRELA(SequentialRecommender):
         self.LayerNorm = nn.LayerNorm(self.hidden_size, eps=1e-12)
         self.dropout = nn.Dropout(self.dropout_prob)
 
-        self.GLARE_block = nn.ModuleList([
-            GLARE(
+        self.GRELA_block = nn.ModuleList([
+            GRELA(
                 d_model=self.hidden_size,
                 seq_len=self.seq_len,
                 num_heads=self.num_heads,
@@ -64,7 +64,7 @@ class RecGRELA(SequentialRecommender):
         item_emb = self.LayerNorm(item_emb)
 
         for i in range(self.num_layers):
-            item_emb = self.GLARE_block[i](item_emb)
+            item_emb = self.GRELA_block[i](item_emb)
 
         seq_output = self.gather_indexes(item_emb, item_seq_len - 1)
         return seq_output
@@ -107,11 +107,11 @@ class RecGRELA(SequentialRecommender):
         )
         return scores
 
-class GLARE(nn.Module):
+class GRELA(nn.Module):
     def __init__(self, d_model, seq_len, num_heads, drop, drop_path, num_layers):
         super().__init__()
         self.num_layers = num_layers
-        self.attn = LinearAttentionWithRope(
+        self.attn = RotaryEnhancedLinearAttention(
             d_model=d_model,
             seq_len=seq_len,
             num_heads=num_heads,
@@ -154,7 +154,7 @@ class GLARE(nn.Module):
         return x
 
 
-class LinearAttentionWithRope(nn.Module):
+class RotaryEnhancedLinearAttention(nn.Module):
     def __init__(self, d_model, seq_len, num_heads):
         super().__init__()
         self.d_model = d_model
