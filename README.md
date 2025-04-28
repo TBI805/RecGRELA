@@ -3,6 +3,7 @@
 This repository contains the reference code for the paper **Gated Rotary-Enhanced Linear Attention for Long-term Sequential Recommendation**.
 
 ## 1. Overall
+
 <p align="center">
     <img src="img/RecGRELA.png" alt="overview_of_tim4rec"/>
   </p>
@@ -20,14 +21,14 @@ Here are our main environment dependencies for running the repository：
 
 ### 3. Datasets
 
-ML-20M, and Netflix datasets can be downloaded from [RecSysDatasets](https://github.com/RUCAIBox/RecSysDatasets). ML-32M can be found at [MovieLens](https://grouplens.org/datasets/movielens/) and processed by [conversion tools](https://github.com/RUCAIBox/RecDatasets/tree/master/conversion_tools).
+This repository contains ML-1. ML-20M, and Netflix datasets can be downloaded from [RecSysDatasets](https://github.com/RUCAIBox/RecSysDatasets). ML-32M can be found at [MovieLens](https://grouplens.org/datasets/movielens/) and processed by [conversion tools](https://github.com/RUCAIBox/RecDatasets/tree/master/conversion_tools).
 
 ### 4. Run
+
 To reproduce the results reported in our paper, just run it:
 ```
 python run_RecGRELA.py
 ```
-
 
 ## Acknowledgment
 
