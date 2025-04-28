@@ -11,9 +11,9 @@ except ImportError:
     causal_conv1d_fn = None
 
 
-class RecGLARE(SequentialRecommender):
+class RecGRELA(SequentialRecommender):
     def __init__(self, config, dataset):
-        super(RecGLARE, self).__init__(config, dataset)
+        super(RecGRELA, self).__init__(config, dataset)
         self.hidden_size = config["hidden_size"]
         self.loss_type = config["loss_type"]
         self.num_layers = config["num_layers"]
