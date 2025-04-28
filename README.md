@@ -1,4 +1,4 @@
-# RecGLARE
+# RecGRELA
 
 ## Usage
 
@@ -21,7 +21,7 @@ ML-20M, and Netflix datasets can be downloaded from [RecSysDatasets](https://git
 ### Run
 
 ```
-python run_RecGLARE.py
+python run_RecGRELA.py
 ```
 
 
