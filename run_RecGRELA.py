@@ -1,7 +1,7 @@
 import sys
 from logging import getLogger
 from recbole.trainer import Trainer
-from model.RecGLARE import RecGLARE
+from model.RecGRELA import RecGRELA
 from recbole.config import Config
 from recbole.data import create_dataset, data_preparation
 from recbole.data.transform import construct_transform
@@ -14,7 +14,7 @@ from recbole.utils import (
 )
 
 if __name__ == '__main__':
-    config = Config(model=RecGLARE, config_file_list=['config/RecGLARE.yaml'])
+    config = Config(model=RecGRELA, config_file_list=['config/RecGRELA.yaml'])
     init_seed(config['seed'], config['reproducibility'])
 
     # logger initialization
@@ -32,7 +32,7 @@ if __name__ == '__main__':
 
     # model loading and initialization
     init_seed(config["seed"] + config["local_rank"], config["reproducibility"])
-    model = RecGLARE(config, train_data.dataset).to(config['device'])
+    model = RecGRELA(config, train_data.dataset).to(config['device'])
     logger.info(model)
 
     transform = construct_transform(config)
