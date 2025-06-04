@@ -137,7 +137,7 @@ class GRELA(nn.Module):
 
             x = self.drop_path(self.out_proj(x * act_res))
 
-            x = x + self.mlp(self.LayerNorm2(x))
+            x = self.mlp(self.LayerNorm2(x))
         else:
             shortcut = x
             x = self.LayerNorm1(x)
