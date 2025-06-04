@@ -53,4 +53,4 @@ metrics: ['Hit', 'NDCG', 'MRR']
 valid_metric: NDCG@10
 eval_batch_size: 4096
 weight_decay: 0.0
-topk: 10
+topk: [5, 10]
