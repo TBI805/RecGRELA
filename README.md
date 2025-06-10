@@ -30,6 +30,9 @@ To reproduce the results reported in our paper, just run it:
 python run_RecGRELA.py
 ```
 
+### 5. Results
+You can also check the training log in[`📁 log`](log/).
+
 ## Acknowledgment
 
 Our code references [RecBole](https://github.com/RUCAIBox/RecBole), [Mamba4Rec](https://github.com/chengkai-liu/Mamba4Rec), and [Causal-Conv1d](https://github.com/Dao-AILab/causal-conv1d). We appreciate their outstanding work and open source. 
