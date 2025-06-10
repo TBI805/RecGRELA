@@ -1,0 +1,668 @@
+Wed 04 Jun 2025 15:17:42 INFO  ['/home/hujuntao/Documents/code/RecBLR/run_RecGRELA.py']
+Wed 04 Jun 2025 15:17:42 INFO  
+General Hyper Parameters:
+gpu_id = 0
+use_gpu = True
+seed = 2020
+state = INFO
+reproducibility = True
+data_path = dataset/ml-1m
+checkpoint_dir = saved
+show_progress = True
+save_dataset = False
+dataset_save_path = None
+save_dataloaders = False
+dataloaders_save_path = None
+log_wandb = False
+
+Training Hyper Parameters:
+epochs = 300
+train_batch_size = 2048
+learner = adam
+learning_rate = 0.001
+train_neg_sample_args = {'distribution': 'none', 'sample_num': 'none', 'alpha': 'none', 'dynamic': False, 'candidate_num': 0}
+eval_step = 1
+stopping_step = 20
+clip_grad_norm = None
+weight_decay = 0.0
+loss_decimal_place = 4
+
+Evaluation Hyper Parameters:
+eval_args = {'split': {'LS': 'valid_and_test'}, 'order': 'TO', 'group_by': 'user', 'mode': {'valid': 'full', 'test': 'full'}}
+repeatable = True
+metrics = ['Hit', 'NDCG', 'MRR']
+topk = [5, 10]
+valid_metric = NDCG@10
+valid_metric_bigger = True
+eval_batch_size = 4096
+metric_decimal_place = 4
+
+Dataset Hyper Parameters:
+field_separator = 	
+seq_separator =  
+USER_ID_FIELD = user_id
+ITEM_ID_FIELD = item_id
+RATING_FIELD = rating
+TIME_FIELD = timestamp
+seq_len = None
+LABEL_FIELD = label
+threshold = None
+NEG_PREFIX = neg_
+load_col = {'inter': ['user_id', 'item_id', 'timestamp']}
+unload_col = None
+unused_col = None
+additional_feat_suffix = None
+rm_dup_inter = None
+val_interval = None
+filter_inter_by_user_or_item = True
+user_inter_num_interval = [5,inf)
+item_inter_num_interval = [5,inf)
+alias_of_user_id = None
+alias_of_item_id = None
+alias_of_entity_id = None
+alias_of_relation_id = None
+preload_weight = None
+normalize_field = None
+normalize_all = None
+ITEM_LIST_LENGTH_FIELD = item_length
+LIST_SUFFIX = _list
+MAX_ITEM_LIST_LENGTH = 200
+POSITION_FIELD = position_id
+HEAD_ENTITY_ID_FIELD = head_id
+TAIL_ENTITY_ID_FIELD = tail_id
+RELATION_ID_FIELD = relation_id
+ENTITY_ID_FIELD = entity_id
+benchmark_filename = None
+
+Other Hyper Parameters: 
+worker = 0
+wandb_project = recbole
+shuffle = True
+require_pow = False
+enable_amp = False
+enable_scaler = False
+transform = None
+numerical_features = []
+discretization = None
+kg_reverse_r = False
+entity_kg_num_interval = [0,inf)
+relation_kg_num_interval = [0,inf)
+MODEL_TYPE = ModelType.SEQUENTIAL
+hidden_size = 64
+num_heads = 4
+num_layers = 4
+dropout_prob = 0.1
+drop_path = 0.1
+loss_type = CE
+MODEL_INPUT_TYPE = InputType.POINTWISE
+eval_type = EvaluatorType.RANKING
+single_spec = True
+local_rank = 0
+device = cuda
+valid_neg_sample_args = {'distribution': 'uniform', 'sample_num': 'none'}
+test_neg_sample_args = {'distribution': 'uniform', 'sample_num': 'none'}
+
+
+Wed 04 Jun 2025 15:17:44 INFO  ml-1m
+The number of users: 6041
+Average actions of users: 165.49850993377484
+The number of items: 3417
+Average actions of items: 292.6261709601874
+The number of inters: 999611
+The sparsity of the dataset: 95.15741545057172%
+Remain Fields: ['user_id', 'item_id', 'timestamp']
+Wed 04 Jun 2025 15:17:50 INFO  [Training]: train_batch_size = [2048] train_neg_sample_args: [{'distribution': 'none', 'sample_num': 'none', 'alpha': 'none', 'dynamic': False, 'candidate_num': 0}]
+Wed 04 Jun 2025 15:17:50 INFO  [Evaluation]: eval_batch_size = [4096] eval_args: [{'split': {'LS': 'valid_and_test'}, 'order': 'TO', 'group_by': 'user', 'mode': {'valid': 'full', 'test': 'full'}}]
+Wed 04 Jun 2025 15:17:50 INFO  RecGRELA(
+  (item_embedding): Embedding(3417, 64, padding_idx=0)
+  (LayerNorm): LayerNorm((64,), eps=1e-12, elementwise_affine=True)
+  (dropout): Dropout(p=0.1, inplace=False)
+  (GRELA_block): ModuleList(
+    (0-3): 4 x GRELA(
+      (attn): RotaryEnhancedLinearAttention(
+        (qk): Linear(in_features=64, out_features=128, bias=True)
+        (elu): ELU(alpha=1.0)
+        (conv1d): Conv1d(64, 64, kernel_size=(4,), stride=(1,), padding=(3,), groups=64)
+        (rope): RoPE()
+      )
+      (in_proj): Linear(in_features=64, out_features=64, bias=True)
+      (out_proj): Linear(in_features=64, out_features=64, bias=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+      (LayerNorm1): LayerNorm((64,), eps=1e-12, elementwise_affine=True)
+      (LayerNorm2): LayerNorm((64,), eps=1e-12, elementwise_affine=True)
+      (mlp): Mlp(
+        (fc1): Linear(in_features=64, out_features=256, bias=True)
+        (act): GELU(approximate='none')
+        (fc2): Linear(in_features=256, out_features=64, bias=True)
+        (drop): Dropout(p=0.1, inplace=False)
+      )
+      (act_proj): Linear(in_features=64, out_features=64, bias=True)
+      (act): SiLU()
+      (drop_path): DropPath(drop_prob=0.100)
+    )
+  )
+  (loss_fct): CrossEntropyLoss()
+)
+Trainable parameters: 436672
+Wed 04 Jun 2025 15:17:51 INFO  FLOPs: 42841664.0
+Wed 04 Jun 2025 15:19:08 INFO  epoch 0 training [time: 76.98s, train loss: 3033.4419]
+Wed 04 Jun 2025 15:19:08 INFO  epoch 0 evaluating [time: 0.21s, valid_score: 0.107200]
+Wed 04 Jun 2025 15:19:08 INFO  valid result: 
+hit@5 : 0.1308    hit@10 : 0.2109    ndcg@5 : 0.0815    ndcg@10 : 0.1072    mrr@5 : 0.0654    mrr@10 : 0.0758
+Wed 04 Jun 2025 15:19:08 INFO  Saving current: saved/RecGRELA-Jun-04-2025_15-17-51.pth
+Wed 04 Jun 2025 15:20:25 INFO  epoch 1 training [time: 76.89s, train loss: 2666.8160]
+Wed 04 Jun 2025 15:20:25 INFO  epoch 1 evaluating [time: 0.18s, valid_score: 0.131200]
+Wed 04 Jun 2025 15:20:25 INFO  valid result: 
+hit@5 : 0.1606    hit@10 : 0.2503    ndcg@5 : 0.1022    ndcg@10 : 0.1312    mrr@5 : 0.083    mrr@10 : 0.0949
+Wed 04 Jun 2025 15:20:25 INFO  Saving current: saved/RecGRELA-Jun-04-2025_15-17-51.pth
+Wed 04 Jun 2025 15:21:42 INFO  epoch 2 training [time: 76.89s, train loss: 2575.4982]
+Wed 04 Jun 2025 15:21:42 INFO  epoch 2 evaluating [time: 0.19s, valid_score: 0.149300]
+Wed 04 Jun 2025 15:21:42 INFO  valid result: 
+hit@5 : 0.1863    hit@10 : 0.2773    ndcg@5 : 0.12    ndcg@10 : 0.1493    mrr@5 : 0.0983    mrr@10 : 0.1103
+Wed 04 Jun 2025 15:21:42 INFO  Saving current: saved/RecGRELA-Jun-04-2025_15-17-51.pth
+Wed 04 Jun 2025 15:22:59 INFO  epoch 3 training [time: 76.89s, train loss: 2523.7291]
+Wed 04 Jun 2025 15:22:59 INFO  epoch 3 evaluating [time: 0.18s, valid_score: 0.152200]
+Wed 04 Jun 2025 15:22:59 INFO  valid result: 
+hit@5 : 0.1868    hit@10 : 0.2816    ndcg@5 : 0.1215    ndcg@10 : 0.1522    mrr@5 : 0.1002    mrr@10 : 0.1129
+Wed 04 Jun 2025 15:22:59 INFO  Saving current: saved/RecGRELA-Jun-04-2025_15-17-51.pth
+Wed 04 Jun 2025 15:24:16 INFO  epoch 4 training [time: 76.90s, train loss: 2488.8045]
+Wed 04 Jun 2025 15:24:16 INFO  epoch 4 evaluating [time: 0.18s, valid_score: 0.160400]
+Wed 04 Jun 2025 15:24:16 INFO  valid result: 
+hit@5 : 0.1964    hit@10 : 0.2921    ndcg@5 : 0.1295    ndcg@10 : 0.1604    mrr@5 : 0.1076    mrr@10 : 0.1204
+Wed 04 Jun 2025 15:24:16 INFO  Saving current: saved/RecGRELA-Jun-04-2025_15-17-51.pth
+Wed 04 Jun 2025 15:25:33 INFO  epoch 5 training [time: 76.89s, train loss: 2463.2730]
+Wed 04 Jun 2025 15:25:33 INFO  epoch 5 evaluating [time: 0.18s, valid_score: 0.164300]
+Wed 04 Jun 2025 15:25:33 INFO  valid result: 
+hit@5 : 0.1997    hit@10 : 0.302    ndcg@5 : 0.1313    ndcg@10 : 0.1643    mrr@5 : 0.1089    mrr@10 : 0.1224
+Wed 04 Jun 2025 15:25:33 INFO  Saving current: saved/RecGRELA-Jun-04-2025_15-17-51.pth
+Wed 04 Jun 2025 15:26:50 INFO  epoch 6 training [time: 76.89s, train loss: 2442.7190]
+Wed 04 Jun 2025 15:26:50 INFO  epoch 6 evaluating [time: 0.18s, valid_score: 0.169000]
+Wed 04 Jun 2025 15:26:50 INFO  valid result: 
+hit@5 : 0.2086    hit@10 : 0.3041    ndcg@5 : 0.1382    ndcg@10 : 0.169    mrr@5 : 0.1152    mrr@10 : 0.1279
+Wed 04 Jun 2025 15:26:50 INFO  Saving current: saved/RecGRELA-Jun-04-2025_15-17-51.pth
+Wed 04 Jun 2025 15:28:07 INFO  epoch 7 training [time: 76.89s, train loss: 2427.4957]
+Wed 04 Jun 2025 15:28:07 INFO  epoch 7 evaluating [time: 0.20s, valid_score: 0.172700]
+Wed 04 Jun 2025 15:28:07 INFO  valid result: 
+hit@5 : 0.2094    hit@10 : 0.3127    ndcg@5 : 0.1394    ndcg@10 : 0.1727    mrr@5 : 0.1164    mrr@10 : 0.1301
+Wed 04 Jun 2025 15:28:07 INFO  Saving current: saved/RecGRELA-Jun-04-2025_15-17-51.pth
+Wed 04 Jun 2025 15:29:24 INFO  epoch 8 training [time: 76.90s, train loss: 2413.2734]
+Wed 04 Jun 2025 15:29:25 INFO  epoch 8 evaluating [time: 0.18s, valid_score: 0.173900]
+Wed 04 Jun 2025 15:29:25 INFO  valid result: 
+hit@5 : 0.2151    hit@10 : 0.3124    ndcg@5 : 0.1424    ndcg@10 : 0.1739    mrr@5 : 0.1185    mrr@10 : 0.1315
+Wed 04 Jun 2025 15:29:25 INFO  Saving current: saved/RecGRELA-Jun-04-2025_15-17-51.pth
+Wed 04 Jun 2025 15:30:41 INFO  epoch 9 training [time: 76.89s, train loss: 2399.4611]
+Wed 04 Jun 2025 15:30:42 INFO  epoch 9 evaluating [time: 0.18s, valid_score: 0.178100]
+Wed 04 Jun 2025 15:30:42 INFO  valid result: 
+hit@5 : 0.2214    hit@10 : 0.319    ndcg@5 : 0.1466    ndcg@10 : 0.1781    mrr@5 : 0.1221    mrr@10 : 0.135
+Wed 04 Jun 2025 15:30:42 INFO  Saving current: saved/RecGRELA-Jun-04-2025_15-17-51.pth
+Wed 04 Jun 2025 15:31:59 INFO  epoch 10 training [time: 76.89s, train loss: 2388.6024]
+Wed 04 Jun 2025 15:31:59 INFO  epoch 10 evaluating [time: 0.18s, valid_score: 0.182900]
+Wed 04 Jun 2025 15:31:59 INFO  valid result: 
+hit@5 : 0.2219    hit@10 : 0.3247    ndcg@5 : 0.1497    ndcg@10 : 0.1829    mrr@5 : 0.1261    mrr@10 : 0.1397
+Wed 04 Jun 2025 15:31:59 INFO  Saving current: saved/RecGRELA-Jun-04-2025_15-17-51.pth
+Wed 04 Jun 2025 15:33:16 INFO  epoch 11 training [time: 76.89s, train loss: 2378.8357]
+Wed 04 Jun 2025 15:33:16 INFO  epoch 11 evaluating [time: 0.18s, valid_score: 0.182400]
+Wed 04 Jun 2025 15:33:16 INFO  valid result: 
+hit@5 : 0.2278    hit@10 : 0.3272    ndcg@5 : 0.1505    ndcg@10 : 0.1824    mrr@5 : 0.1251    mrr@10 : 0.1383
+Wed 04 Jun 2025 15:34:33 INFO  epoch 12 training [time: 76.88s, train loss: 2371.2622]
+Wed 04 Jun 2025 15:34:33 INFO  epoch 12 evaluating [time: 0.18s, valid_score: 0.183700]
+Wed 04 Jun 2025 15:34:33 INFO  valid result: 
+hit@5 : 0.2247    hit@10 : 0.3262    ndcg@5 : 0.1509    ndcg@10 : 0.1837    mrr@5 : 0.1267    mrr@10 : 0.1402
+Wed 04 Jun 2025 15:34:33 INFO  Saving current: saved/RecGRELA-Jun-04-2025_15-17-51.pth
+Wed 04 Jun 2025 15:35:50 INFO  epoch 13 training [time: 76.88s, train loss: 2364.7241]
+Wed 04 Jun 2025 15:35:50 INFO  epoch 13 evaluating [time: 0.18s, valid_score: 0.185500]
+Wed 04 Jun 2025 15:35:50 INFO  valid result: 
+hit@5 : 0.2247    hit@10 : 0.3291    ndcg@5 : 0.1518    ndcg@10 : 0.1855    mrr@5 : 0.1278    mrr@10 : 0.1417
+Wed 04 Jun 2025 15:35:50 INFO  Saving current: saved/RecGRELA-Jun-04-2025_15-17-51.pth
+Wed 04 Jun 2025 15:37:07 INFO  epoch 14 training [time: 76.88s, train loss: 2358.2810]
+Wed 04 Jun 2025 15:37:07 INFO  epoch 14 evaluating [time: 0.18s, valid_score: 0.190900]
+Wed 04 Jun 2025 15:37:07 INFO  valid result: 
+hit@5 : 0.2308    hit@10 : 0.3369    ndcg@5 : 0.1567    ndcg@10 : 0.1909    mrr@5 : 0.1324    mrr@10 : 0.1464
+Wed 04 Jun 2025 15:37:07 INFO  Saving current: saved/RecGRELA-Jun-04-2025_15-17-51.pth
+Wed 04 Jun 2025 15:38:24 INFO  epoch 15 training [time: 76.88s, train loss: 2352.8989]
+Wed 04 Jun 2025 15:38:24 INFO  epoch 15 evaluating [time: 0.19s, valid_score: 0.188600]
+Wed 04 Jun 2025 15:38:24 INFO  valid result: 
+hit@5 : 0.2283    hit@10 : 0.3296    ndcg@5 : 0.1559    ndcg@10 : 0.1886    mrr@5 : 0.1322    mrr@10 : 0.1456
+Wed 04 Jun 2025 15:39:41 INFO  epoch 16 training [time: 76.89s, train loss: 2348.1030]
+Wed 04 Jun 2025 15:39:41 INFO  epoch 16 evaluating [time: 0.18s, valid_score: 0.190400]
+Wed 04 Jun 2025 15:39:41 INFO  valid result: 
+hit@5 : 0.23    hit@10 : 0.3323    ndcg@5 : 0.1573    ndcg@10 : 0.1904    mrr@5 : 0.1335    mrr@10 : 0.1472
+Wed 04 Jun 2025 15:40:58 INFO  epoch 17 training [time: 76.91s, train loss: 2343.6324]
+Wed 04 Jun 2025 15:40:58 INFO  epoch 17 evaluating [time: 0.18s, valid_score: 0.193200]
+Wed 04 Jun 2025 15:40:58 INFO  valid result: 
+hit@5 : 0.2384    hit@10 : 0.3386    ndcg@5 : 0.1609    ndcg@10 : 0.1932    mrr@5 : 0.1354    mrr@10 : 0.1487
+Wed 04 Jun 2025 15:40:58 INFO  Saving current: saved/RecGRELA-Jun-04-2025_15-17-51.pth
+Wed 04 Jun 2025 15:42:15 INFO  epoch 18 training [time: 76.90s, train loss: 2339.7181]
+Wed 04 Jun 2025 15:42:15 INFO  epoch 18 evaluating [time: 0.19s, valid_score: 0.192700]
+Wed 04 Jun 2025 15:42:15 INFO  valid result: 
+hit@5 : 0.2381    hit@10 : 0.3364    ndcg@5 : 0.161    ndcg@10 : 0.1927    mrr@5 : 0.1357    mrr@10 : 0.1487
+Wed 04 Jun 2025 15:43:32 INFO  epoch 19 training [time: 76.90s, train loss: 2335.6367]
+Wed 04 Jun 2025 15:43:32 INFO  epoch 19 evaluating [time: 0.18s, valid_score: 0.193400]
+Wed 04 Jun 2025 15:43:32 INFO  valid result: 
+hit@5 : 0.2397    hit@10 : 0.3382    ndcg@5 : 0.1617    ndcg@10 : 0.1934    mrr@5 : 0.1362    mrr@10 : 0.1491
+Wed 04 Jun 2025 15:43:32 INFO  Saving current: saved/RecGRELA-Jun-04-2025_15-17-51.pth
+Wed 04 Jun 2025 15:44:49 INFO  epoch 20 training [time: 76.90s, train loss: 2332.3135]
+Wed 04 Jun 2025 15:44:50 INFO  epoch 20 evaluating [time: 0.18s, valid_score: 0.194400]
+Wed 04 Jun 2025 15:44:50 INFO  valid result: 
+hit@5 : 0.2396    hit@10 : 0.3402    ndcg@5 : 0.162    ndcg@10 : 0.1944    mrr@5 : 0.1366    mrr@10 : 0.1499
+Wed 04 Jun 2025 15:44:50 INFO  Saving current: saved/RecGRELA-Jun-04-2025_15-17-51.pth
+Wed 04 Jun 2025 15:46:06 INFO  epoch 21 training [time: 76.90s, train loss: 2329.5174]
+Wed 04 Jun 2025 15:46:07 INFO  epoch 21 evaluating [time: 0.18s, valid_score: 0.194100]
+Wed 04 Jun 2025 15:46:07 INFO  valid result: 
+hit@5 : 0.2368    hit@10 : 0.3368    ndcg@5 : 0.1617    ndcg@10 : 0.1941    mrr@5 : 0.1372    mrr@10 : 0.1505
+Wed 04 Jun 2025 15:47:24 INFO  epoch 22 training [time: 76.89s, train loss: 2326.2261]
+Wed 04 Jun 2025 15:47:24 INFO  epoch 22 evaluating [time: 0.18s, valid_score: 0.192300]
+Wed 04 Jun 2025 15:47:24 INFO  valid result: 
+hit@5 : 0.2291    hit@10 : 0.3374    ndcg@5 : 0.1574    ndcg@10 : 0.1923    mrr@5 : 0.1338    mrr@10 : 0.1482
+Wed 04 Jun 2025 15:48:41 INFO  epoch 23 training [time: 76.89s, train loss: 2323.5754]
+Wed 04 Jun 2025 15:48:41 INFO  epoch 23 evaluating [time: 0.18s, valid_score: 0.194700]
+Wed 04 Jun 2025 15:48:41 INFO  valid result: 
+hit@5 : 0.2353    hit@10 : 0.3409    ndcg@5 : 0.1606    ndcg@10 : 0.1947    mrr@5 : 0.1361    mrr@10 : 0.1501
+Wed 04 Jun 2025 15:48:41 INFO  Saving current: saved/RecGRELA-Jun-04-2025_15-17-51.pth
+Wed 04 Jun 2025 15:49:58 INFO  epoch 24 training [time: 76.90s, train loss: 2320.8647]
+Wed 04 Jun 2025 15:49:58 INFO  epoch 24 evaluating [time: 0.18s, valid_score: 0.196100]
+Wed 04 Jun 2025 15:49:58 INFO  valid result: 
+hit@5 : 0.2379    hit@10 : 0.3417    ndcg@5 : 0.1625    ndcg@10 : 0.1961    mrr@5 : 0.1378    mrr@10 : 0.1516
+Wed 04 Jun 2025 15:49:58 INFO  Saving current: saved/RecGRELA-Jun-04-2025_15-17-51.pth
+Wed 04 Jun 2025 15:51:15 INFO  epoch 25 training [time: 76.90s, train loss: 2318.0448]
+Wed 04 Jun 2025 15:51:15 INFO  epoch 25 evaluating [time: 0.18s, valid_score: 0.195700]
+Wed 04 Jun 2025 15:51:15 INFO  valid result: 
+hit@5 : 0.2394    hit@10 : 0.3422    ndcg@5 : 0.1625    ndcg@10 : 0.1957    mrr@5 : 0.1373    mrr@10 : 0.151
+Wed 04 Jun 2025 15:52:32 INFO  epoch 26 training [time: 76.90s, train loss: 2316.0023]
+Wed 04 Jun 2025 15:52:32 INFO  epoch 26 evaluating [time: 0.18s, valid_score: 0.194900]
+Wed 04 Jun 2025 15:52:32 INFO  valid result: 
+hit@5 : 0.2382    hit@10 : 0.3396    ndcg@5 : 0.1622    ndcg@10 : 0.1949    mrr@5 : 0.1373    mrr@10 : 0.1507
+Wed 04 Jun 2025 15:53:49 INFO  epoch 27 training [time: 76.90s, train loss: 2313.9213]
+Wed 04 Jun 2025 15:53:49 INFO  epoch 27 evaluating [time: 0.18s, valid_score: 0.196500]
+Wed 04 Jun 2025 15:53:49 INFO  valid result: 
+hit@5 : 0.2391    hit@10 : 0.3392    ndcg@5 : 0.1641    ndcg@10 : 0.1965    mrr@5 : 0.1395    mrr@10 : 0.1529
+Wed 04 Jun 2025 15:53:49 INFO  Saving current: saved/RecGRELA-Jun-04-2025_15-17-51.pth
+Wed 04 Jun 2025 15:55:06 INFO  epoch 28 training [time: 76.91s, train loss: 2311.5604]
+Wed 04 Jun 2025 15:55:06 INFO  epoch 28 evaluating [time: 0.18s, valid_score: 0.197800]
+Wed 04 Jun 2025 15:55:06 INFO  valid result: 
+hit@5 : 0.2381    hit@10 : 0.3435    ndcg@5 : 0.1636    ndcg@10 : 0.1978    mrr@5 : 0.1391    mrr@10 : 0.1532
+Wed 04 Jun 2025 15:55:06 INFO  Saving current: saved/RecGRELA-Jun-04-2025_15-17-51.pth
+Wed 04 Jun 2025 15:56:23 INFO  epoch 29 training [time: 76.90s, train loss: 2309.5965]
+Wed 04 Jun 2025 15:56:23 INFO  epoch 29 evaluating [time: 0.19s, valid_score: 0.196900]
+Wed 04 Jun 2025 15:56:23 INFO  valid result: 
+hit@5 : 0.2397    hit@10 : 0.3452    ndcg@5 : 0.1628    ndcg@10 : 0.1969    mrr@5 : 0.1376    mrr@10 : 0.1516
+Wed 04 Jun 2025 15:57:40 INFO  epoch 30 training [time: 76.90s, train loss: 2307.6797]
+Wed 04 Jun 2025 15:57:40 INFO  epoch 30 evaluating [time: 0.18s, valid_score: 0.198400]
+Wed 04 Jun 2025 15:57:40 INFO  valid result: 
+hit@5 : 0.2459    hit@10 : 0.3399    ndcg@5 : 0.168    ndcg@10 : 0.1984    mrr@5 : 0.1425    mrr@10 : 0.155
+Wed 04 Jun 2025 15:57:40 INFO  Saving current: saved/RecGRELA-Jun-04-2025_15-17-51.pth
+Wed 04 Jun 2025 15:58:57 INFO  epoch 31 training [time: 76.90s, train loss: 2305.9490]
+Wed 04 Jun 2025 15:58:58 INFO  epoch 31 evaluating [time: 0.18s, valid_score: 0.195700]
+Wed 04 Jun 2025 15:58:58 INFO  valid result: 
+hit@5 : 0.2387    hit@10 : 0.3424    ndcg@5 : 0.1623    ndcg@10 : 0.1957    mrr@5 : 0.1372    mrr@10 : 0.1509
+Wed 04 Jun 2025 16:00:14 INFO  epoch 32 training [time: 76.90s, train loss: 2304.1343]
+Wed 04 Jun 2025 16:00:15 INFO  epoch 32 evaluating [time: 0.18s, valid_score: 0.196800]
+Wed 04 Jun 2025 16:00:15 INFO  valid result: 
+hit@5 : 0.2397    hit@10 : 0.343    ndcg@5 : 0.1633    ndcg@10 : 0.1968    mrr@5 : 0.1382    mrr@10 : 0.152
+Wed 04 Jun 2025 16:01:32 INFO  epoch 33 training [time: 76.90s, train loss: 2301.8995]
+Wed 04 Jun 2025 16:01:32 INFO  epoch 33 evaluating [time: 0.18s, valid_score: 0.198100]
+Wed 04 Jun 2025 16:01:32 INFO  valid result: 
+hit@5 : 0.2427    hit@10 : 0.3437    ndcg@5 : 0.1654    ndcg@10 : 0.1981    mrr@5 : 0.1401    mrr@10 : 0.1536
+Wed 04 Jun 2025 16:02:49 INFO  epoch 34 training [time: 76.90s, train loss: 2300.7673]
+Wed 04 Jun 2025 16:02:49 INFO  epoch 34 evaluating [time: 0.18s, valid_score: 0.198700]
+Wed 04 Jun 2025 16:02:49 INFO  valid result: 
+hit@5 : 0.2469    hit@10 : 0.3434    ndcg@5 : 0.1675    ndcg@10 : 0.1987    mrr@5 : 0.1415    mrr@10 : 0.1543
+Wed 04 Jun 2025 16:02:49 INFO  Saving current: saved/RecGRELA-Jun-04-2025_15-17-51.pth
+Wed 04 Jun 2025 16:04:06 INFO  epoch 35 training [time: 76.90s, train loss: 2299.1220]
+Wed 04 Jun 2025 16:04:06 INFO  epoch 35 evaluating [time: 0.18s, valid_score: 0.199400]
+Wed 04 Jun 2025 16:04:06 INFO  valid result: 
+hit@5 : 0.2435    hit@10 : 0.3457    ndcg@5 : 0.1665    ndcg@10 : 0.1994    mrr@5 : 0.1413    mrr@10 : 0.1548
+Wed 04 Jun 2025 16:04:06 INFO  Saving current: saved/RecGRELA-Jun-04-2025_15-17-51.pth
+Wed 04 Jun 2025 16:05:23 INFO  epoch 36 training [time: 76.90s, train loss: 2297.8980]
+Wed 04 Jun 2025 16:05:23 INFO  epoch 36 evaluating [time: 0.18s, valid_score: 0.199700]
+Wed 04 Jun 2025 16:05:23 INFO  valid result: 
+hit@5 : 0.2412    hit@10 : 0.3505    ndcg@5 : 0.1645    ndcg@10 : 0.1997    mrr@5 : 0.1393    mrr@10 : 0.1538
+Wed 04 Jun 2025 16:05:23 INFO  Saving current: saved/RecGRELA-Jun-04-2025_15-17-51.pth
+Wed 04 Jun 2025 16:06:40 INFO  epoch 37 training [time: 76.90s, train loss: 2297.0443]
+Wed 04 Jun 2025 16:06:40 INFO  epoch 37 evaluating [time: 0.19s, valid_score: 0.198200]
+Wed 04 Jun 2025 16:06:40 INFO  valid result: 
+hit@5 : 0.244    hit@10 : 0.3427    ndcg@5 : 0.1664    ndcg@10 : 0.1982    mrr@5 : 0.1409    mrr@10 : 0.154
+Wed 04 Jun 2025 16:07:57 INFO  epoch 38 training [time: 76.90s, train loss: 2294.8777]
+Wed 04 Jun 2025 16:07:57 INFO  epoch 38 evaluating [time: 0.18s, valid_score: 0.199900]
+Wed 04 Jun 2025 16:07:57 INFO  valid result: 
+hit@5 : 0.2465    hit@10 : 0.3444    ndcg@5 : 0.1683    ndcg@10 : 0.1999    mrr@5 : 0.1427    mrr@10 : 0.1557
+Wed 04 Jun 2025 16:07:57 INFO  Saving current: saved/RecGRELA-Jun-04-2025_15-17-51.pth
+Wed 04 Jun 2025 16:09:14 INFO  epoch 39 training [time: 76.90s, train loss: 2293.5537]
+Wed 04 Jun 2025 16:09:14 INFO  epoch 39 evaluating [time: 0.18s, valid_score: 0.200900]
+Wed 04 Jun 2025 16:09:14 INFO  valid result: 
+hit@5 : 0.2503    hit@10 : 0.3442    ndcg@5 : 0.1706    ndcg@10 : 0.2009    mrr@5 : 0.1444    mrr@10 : 0.1568
+Wed 04 Jun 2025 16:09:14 INFO  Saving current: saved/RecGRELA-Jun-04-2025_15-17-51.pth
+Wed 04 Jun 2025 16:10:31 INFO  epoch 40 training [time: 76.91s, train loss: 2292.6044]
+Wed 04 Jun 2025 16:10:31 INFO  epoch 40 evaluating [time: 0.18s, valid_score: 0.199500]
+Wed 04 Jun 2025 16:10:31 INFO  valid result: 
+hit@5 : 0.2439    hit@10 : 0.345    ndcg@5 : 0.1669    ndcg@10 : 0.1995    mrr@5 : 0.1416    mrr@10 : 0.155
+Wed 04 Jun 2025 16:11:48 INFO  epoch 41 training [time: 76.90s, train loss: 2291.2154]
+Wed 04 Jun 2025 16:11:49 INFO  epoch 41 evaluating [time: 0.18s, valid_score: 0.198300]
+Wed 04 Jun 2025 16:11:49 INFO  valid result: 
+hit@5 : 0.2422    hit@10 : 0.3434    ndcg@5 : 0.1657    ndcg@10 : 0.1983    mrr@5 : 0.1405    mrr@10 : 0.1539
+Wed 04 Jun 2025 16:13:05 INFO  epoch 42 training [time: 76.90s, train loss: 2289.7011]
+Wed 04 Jun 2025 16:13:06 INFO  epoch 42 evaluating [time: 0.18s, valid_score: 0.196400]
+Wed 04 Jun 2025 16:13:06 INFO  valid result: 
+hit@5 : 0.2381    hit@10 : 0.3409    ndcg@5 : 0.1632    ndcg@10 : 0.1964    mrr@5 : 0.1386    mrr@10 : 0.1523
+Wed 04 Jun 2025 16:14:23 INFO  epoch 43 training [time: 76.91s, train loss: 2288.6022]
+Wed 04 Jun 2025 16:14:23 INFO  epoch 43 evaluating [time: 0.18s, valid_score: 0.196400]
+Wed 04 Jun 2025 16:14:23 INFO  valid result: 
+hit@5 : 0.2401    hit@10 : 0.3442    ndcg@5 : 0.163    ndcg@10 : 0.1964    mrr@5 : 0.1377    mrr@10 : 0.1513
+Wed 04 Jun 2025 16:15:40 INFO  epoch 44 training [time: 76.91s, train loss: 2288.1106]
+Wed 04 Jun 2025 16:15:40 INFO  epoch 44 evaluating [time: 0.18s, valid_score: 0.201400]
+Wed 04 Jun 2025 16:15:40 INFO  valid result: 
+hit@5 : 0.2455    hit@10 : 0.3498    ndcg@5 : 0.1676    ndcg@10 : 0.2014    mrr@5 : 0.1421    mrr@10 : 0.156
+Wed 04 Jun 2025 16:15:40 INFO  Saving current: saved/RecGRELA-Jun-04-2025_15-17-51.pth
+Wed 04 Jun 2025 16:16:57 INFO  epoch 45 training [time: 76.90s, train loss: 2286.5101]
+Wed 04 Jun 2025 16:16:57 INFO  epoch 45 evaluating [time: 0.18s, valid_score: 0.201400]
+Wed 04 Jun 2025 16:16:57 INFO  valid result: 
+hit@5 : 0.245    hit@10 : 0.3485    ndcg@5 : 0.168    ndcg@10 : 0.2014    mrr@5 : 0.1427    mrr@10 : 0.1565
+Wed 04 Jun 2025 16:16:57 INFO  Saving current: saved/RecGRELA-Jun-04-2025_15-17-51.pth
+Wed 04 Jun 2025 16:18:14 INFO  epoch 46 training [time: 76.91s, train loss: 2285.6671]
+Wed 04 Jun 2025 16:18:14 INFO  epoch 46 evaluating [time: 0.18s, valid_score: 0.201100]
+Wed 04 Jun 2025 16:18:14 INFO  valid result: 
+hit@5 : 0.2449    hit@10 : 0.3472    ndcg@5 : 0.1681    ndcg@10 : 0.2011    mrr@5 : 0.1428    mrr@10 : 0.1564
+Wed 04 Jun 2025 16:19:31 INFO  epoch 47 training [time: 76.90s, train loss: 2284.1907]
+Wed 04 Jun 2025 16:19:31 INFO  epoch 47 evaluating [time: 0.18s, valid_score: 0.202800]
+Wed 04 Jun 2025 16:19:31 INFO  valid result: 
+hit@5 : 0.2464    hit@10 : 0.3482    ndcg@5 : 0.1699    ndcg@10 : 0.2028    mrr@5 : 0.1447    mrr@10 : 0.1583
+Wed 04 Jun 2025 16:19:31 INFO  Saving current: saved/RecGRELA-Jun-04-2025_15-17-51.pth
+Wed 04 Jun 2025 16:20:48 INFO  epoch 48 training [time: 76.91s, train loss: 2283.3136]
+Wed 04 Jun 2025 16:20:48 INFO  epoch 48 evaluating [time: 0.19s, valid_score: 0.199900]
+Wed 04 Jun 2025 16:20:48 INFO  valid result: 
+hit@5 : 0.2432    hit@10 : 0.344    ndcg@5 : 0.1673    ndcg@10 : 0.1999    mrr@5 : 0.1423    mrr@10 : 0.1558
+Wed 04 Jun 2025 16:22:05 INFO  epoch 49 training [time: 76.90s, train loss: 2282.7440]
+Wed 04 Jun 2025 16:22:05 INFO  epoch 49 evaluating [time: 0.19s, valid_score: 0.201600]
+Wed 04 Jun 2025 16:22:05 INFO  valid result: 
+hit@5 : 0.2469    hit@10 : 0.3478    ndcg@5 : 0.1692    ndcg@10 : 0.2016    mrr@5 : 0.1437    mrr@10 : 0.157
+Wed 04 Jun 2025 16:23:22 INFO  epoch 50 training [time: 76.94s, train loss: 2281.9552]
+Wed 04 Jun 2025 16:23:22 INFO  epoch 50 evaluating [time: 0.19s, valid_score: 0.201700]
+Wed 04 Jun 2025 16:23:22 INFO  valid result: 
+hit@5 : 0.2488    hit@10 : 0.3449    ndcg@5 : 0.1706    ndcg@10 : 0.2017    mrr@5 : 0.145    mrr@10 : 0.1578
+Wed 04 Jun 2025 16:24:39 INFO  epoch 51 training [time: 76.91s, train loss: 2280.2374]
+Wed 04 Jun 2025 16:24:39 INFO  epoch 51 evaluating [time: 0.18s, valid_score: 0.202400]
+Wed 04 Jun 2025 16:24:39 INFO  valid result: 
+hit@5 : 0.248    hit@10 : 0.3487    ndcg@5 : 0.1699    ndcg@10 : 0.2024    mrr@5 : 0.1443    mrr@10 : 0.1576
+Wed 04 Jun 2025 16:25:56 INFO  epoch 52 training [time: 76.90s, train loss: 2280.1374]
+Wed 04 Jun 2025 16:25:57 INFO  epoch 52 evaluating [time: 0.18s, valid_score: 0.198100]
+Wed 04 Jun 2025 16:25:57 INFO  valid result: 
+hit@5 : 0.2434    hit@10 : 0.3434    ndcg@5 : 0.1658    ndcg@10 : 0.1981    mrr@5 : 0.1403    mrr@10 : 0.1537
+Wed 04 Jun 2025 16:27:13 INFO  epoch 53 training [time: 76.88s, train loss: 2279.1373]
+Wed 04 Jun 2025 16:27:14 INFO  epoch 53 evaluating [time: 0.18s, valid_score: 0.203700]
+Wed 04 Jun 2025 16:27:14 INFO  valid result: 
+hit@5 : 0.2439    hit@10 : 0.3503    ndcg@5 : 0.1692    ndcg@10 : 0.2037    mrr@5 : 0.1447    mrr@10 : 0.159
+Wed 04 Jun 2025 16:27:14 INFO  Saving current: saved/RecGRELA-Jun-04-2025_15-17-51.pth
+Wed 04 Jun 2025 16:28:31 INFO  epoch 54 training [time: 76.89s, train loss: 2278.2102]
+Wed 04 Jun 2025 16:28:31 INFO  epoch 54 evaluating [time: 0.18s, valid_score: 0.201500]
+Wed 04 Jun 2025 16:28:31 INFO  valid result: 
+hit@5 : 0.2452    hit@10 : 0.3455    ndcg@5 : 0.1691    ndcg@10 : 0.2015    mrr@5 : 0.1441    mrr@10 : 0.1574
+Wed 04 Jun 2025 16:29:48 INFO  epoch 55 training [time: 76.90s, train loss: 2277.7232]
+Wed 04 Jun 2025 16:29:48 INFO  epoch 55 evaluating [time: 0.20s, valid_score: 0.201000]
+Wed 04 Jun 2025 16:29:48 INFO  valid result: 
+hit@5 : 0.244    hit@10 : 0.3502    ndcg@5 : 0.1668    ndcg@10 : 0.201    mrr@5 : 0.1414    mrr@10 : 0.1555
+Wed 04 Jun 2025 16:31:05 INFO  epoch 56 training [time: 76.91s, train loss: 2276.5409]
+Wed 04 Jun 2025 16:31:05 INFO  epoch 56 evaluating [time: 0.18s, valid_score: 0.200700]
+Wed 04 Jun 2025 16:31:05 INFO  valid result: 
+hit@5 : 0.2414    hit@10 : 0.3422    ndcg@5 : 0.168    ndcg@10 : 0.2007    mrr@5 : 0.1438    mrr@10 : 0.1574
+Wed 04 Jun 2025 16:32:22 INFO  epoch 57 training [time: 76.89s, train loss: 2276.2540]
+Wed 04 Jun 2025 16:32:22 INFO  epoch 57 evaluating [time: 0.19s, valid_score: 0.202000]
+Wed 04 Jun 2025 16:32:22 INFO  valid result: 
+hit@5 : 0.2457    hit@10 : 0.3475    ndcg@5 : 0.1692    ndcg@10 : 0.202    mrr@5 : 0.1441    mrr@10 : 0.1575
+Wed 04 Jun 2025 16:33:39 INFO  epoch 58 training [time: 76.91s, train loss: 2274.7908]
+Wed 04 Jun 2025 16:33:39 INFO  epoch 58 evaluating [time: 0.18s, valid_score: 0.202100]
+Wed 04 Jun 2025 16:33:39 INFO  valid result: 
+hit@5 : 0.2459    hit@10 : 0.3505    ndcg@5 : 0.1684    ndcg@10 : 0.2021    mrr@5 : 0.1429    mrr@10 : 0.1567
+Wed 04 Jun 2025 16:34:56 INFO  epoch 59 training [time: 76.90s, train loss: 2274.5634]
+Wed 04 Jun 2025 16:34:56 INFO  epoch 59 evaluating [time: 0.18s, valid_score: 0.200600]
+Wed 04 Jun 2025 16:34:56 INFO  valid result: 
+hit@5 : 0.246    hit@10 : 0.3454    ndcg@5 : 0.1688    ndcg@10 : 0.2006    mrr@5 : 0.1434    mrr@10 : 0.1563
+Wed 04 Jun 2025 16:36:13 INFO  epoch 60 training [time: 76.91s, train loss: 2273.8044]
+Wed 04 Jun 2025 16:36:13 INFO  epoch 60 evaluating [time: 0.19s, valid_score: 0.200500]
+Wed 04 Jun 2025 16:36:13 INFO  valid result: 
+hit@5 : 0.2422    hit@10 : 0.3474    ndcg@5 : 0.1666    ndcg@10 : 0.2005    mrr@5 : 0.1418    mrr@10 : 0.1557
+Wed 04 Jun 2025 16:37:30 INFO  epoch 61 training [time: 76.90s, train loss: 2273.2798]
+Wed 04 Jun 2025 16:37:30 INFO  epoch 61 evaluating [time: 0.18s, valid_score: 0.202500]
+Wed 04 Jun 2025 16:37:30 INFO  valid result: 
+hit@5 : 0.2457    hit@10 : 0.3465    ndcg@5 : 0.1701    ndcg@10 : 0.2025    mrr@5 : 0.1452    mrr@10 : 0.1586
+Wed 04 Jun 2025 16:38:47 INFO  epoch 62 training [time: 76.91s, train loss: 2272.8255]
+Wed 04 Jun 2025 16:38:47 INFO  epoch 62 evaluating [time: 0.18s, valid_score: 0.203000]
+Wed 04 Jun 2025 16:38:47 INFO  valid result: 
+hit@5 : 0.2502    hit@10 : 0.3483    ndcg@5 : 0.1713    ndcg@10 : 0.203    mrr@5 : 0.1454    mrr@10 : 0.1584
+Wed 04 Jun 2025 16:40:04 INFO  epoch 63 training [time: 76.90s, train loss: 2271.4757]
+Wed 04 Jun 2025 16:40:05 INFO  epoch 63 evaluating [time: 0.18s, valid_score: 0.200100]
+Wed 04 Jun 2025 16:40:05 INFO  valid result: 
+hit@5 : 0.2427    hit@10 : 0.346    ndcg@5 : 0.1669    ndcg@10 : 0.2001    mrr@5 : 0.142    mrr@10 : 0.1556
+Wed 04 Jun 2025 16:41:21 INFO  epoch 64 training [time: 76.90s, train loss: 2271.1369]
+Wed 04 Jun 2025 16:41:22 INFO  epoch 64 evaluating [time: 0.18s, valid_score: 0.204500]
+Wed 04 Jun 2025 16:41:22 INFO  valid result: 
+hit@5 : 0.243    hit@10 : 0.353    ndcg@5 : 0.1689    ndcg@10 : 0.2045    mrr@5 : 0.1445    mrr@10 : 0.1592
+Wed 04 Jun 2025 16:41:22 INFO  Saving current: saved/RecGRELA-Jun-04-2025_15-17-51.pth
+Wed 04 Jun 2025 16:42:39 INFO  epoch 65 training [time: 76.91s, train loss: 2270.8869]
+Wed 04 Jun 2025 16:42:39 INFO  epoch 65 evaluating [time: 0.18s, valid_score: 0.202000]
+Wed 04 Jun 2025 16:42:39 INFO  valid result: 
+hit@5 : 0.2449    hit@10 : 0.3478    ndcg@5 : 0.1689    ndcg@10 : 0.202    mrr@5 : 0.1439    mrr@10 : 0.1575
+Wed 04 Jun 2025 16:43:56 INFO  epoch 66 training [time: 76.90s, train loss: 2269.4147]
+Wed 04 Jun 2025 16:43:56 INFO  epoch 66 evaluating [time: 0.18s, valid_score: 0.200300]
+Wed 04 Jun 2025 16:43:56 INFO  valid result: 
+hit@5 : 0.2464    hit@10 : 0.3416    ndcg@5 : 0.1696    ndcg@10 : 0.2003    mrr@5 : 0.1445    mrr@10 : 0.1571
+Wed 04 Jun 2025 16:45:13 INFO  epoch 67 training [time: 76.90s, train loss: 2269.2200]
+Wed 04 Jun 2025 16:45:13 INFO  epoch 67 evaluating [time: 0.20s, valid_score: 0.201100]
+Wed 04 Jun 2025 16:45:13 INFO  valid result: 
+hit@5 : 0.2419    hit@10 : 0.3482    ndcg@5 : 0.167    ndcg@10 : 0.2011    mrr@5 : 0.1424    mrr@10 : 0.1563
+Wed 04 Jun 2025 16:46:30 INFO  epoch 68 training [time: 76.90s, train loss: 2268.6808]
+Wed 04 Jun 2025 16:46:30 INFO  epoch 68 evaluating [time: 0.18s, valid_score: 0.202000]
+Wed 04 Jun 2025 16:46:30 INFO  valid result: 
+hit@5 : 0.2406    hit@10 : 0.3478    ndcg@5 : 0.1672    ndcg@10 : 0.202    mrr@5 : 0.1431    mrr@10 : 0.1575
+Wed 04 Jun 2025 16:47:47 INFO  epoch 69 training [time: 76.90s, train loss: 2267.7816]
+Wed 04 Jun 2025 16:47:47 INFO  epoch 69 evaluating [time: 0.18s, valid_score: 0.202200]
+Wed 04 Jun 2025 16:47:47 INFO  valid result: 
+hit@5 : 0.243    hit@10 : 0.3465    ndcg@5 : 0.1687    ndcg@10 : 0.2022    mrr@5 : 0.1443    mrr@10 : 0.1581
+Wed 04 Jun 2025 16:49:04 INFO  epoch 70 training [time: 76.92s, train loss: 2267.4972]
+Wed 04 Jun 2025 16:49:04 INFO  epoch 70 evaluating [time: 0.19s, valid_score: 0.200400]
+Wed 04 Jun 2025 16:49:04 INFO  valid result: 
+hit@5 : 0.245    hit@10 : 0.3472    ndcg@5 : 0.1674    ndcg@10 : 0.2004    mrr@5 : 0.1418    mrr@10 : 0.1554
+Wed 04 Jun 2025 16:50:21 INFO  epoch 71 training [time: 76.93s, train loss: 2266.8964]
+Wed 04 Jun 2025 16:50:21 INFO  epoch 71 evaluating [time: 0.18s, valid_score: 0.201800]
+Wed 04 Jun 2025 16:50:21 INFO  valid result: 
+hit@5 : 0.2439    hit@10 : 0.3464    ndcg@5 : 0.1687    ndcg@10 : 0.2018    mrr@5 : 0.144    mrr@10 : 0.1577
+Wed 04 Jun 2025 16:51:38 INFO  epoch 72 training [time: 76.90s, train loss: 2266.2670]
+Wed 04 Jun 2025 16:51:38 INFO  epoch 72 evaluating [time: 0.18s, valid_score: 0.200700]
+Wed 04 Jun 2025 16:51:38 INFO  valid result: 
+hit@5 : 0.2425    hit@10 : 0.3488    ndcg@5 : 0.1663    ndcg@10 : 0.2007    mrr@5 : 0.1412    mrr@10 : 0.1554
+Wed 04 Jun 2025 16:52:55 INFO  epoch 73 training [time: 76.89s, train loss: 2266.6119]
+Wed 04 Jun 2025 16:52:55 INFO  epoch 73 evaluating [time: 0.18s, valid_score: 0.202700]
+Wed 04 Jun 2025 16:52:55 INFO  valid result: 
+hit@5 : 0.244    hit@10 : 0.3525    ndcg@5 : 0.1676    ndcg@10 : 0.2027    mrr@5 : 0.1424    mrr@10 : 0.157
+Wed 04 Jun 2025 16:54:12 INFO  epoch 74 training [time: 76.90s, train loss: 2264.9282]
+Wed 04 Jun 2025 16:54:13 INFO  epoch 74 evaluating [time: 0.18s, valid_score: 0.205200]
+Wed 04 Jun 2025 16:54:13 INFO  valid result: 
+hit@5 : 0.2445    hit@10 : 0.3497    ndcg@5 : 0.1713    ndcg@10 : 0.2052    mrr@5 : 0.1473    mrr@10 : 0.1612
+Wed 04 Jun 2025 16:54:13 INFO  Saving current: saved/RecGRELA-Jun-04-2025_15-17-51.pth
+Wed 04 Jun 2025 16:55:29 INFO  epoch 75 training [time: 76.90s, train loss: 2264.9068]
+Wed 04 Jun 2025 16:55:30 INFO  epoch 75 evaluating [time: 0.18s, valid_score: 0.201900]
+Wed 04 Jun 2025 16:55:30 INFO  valid result: 
+hit@5 : 0.2424    hit@10 : 0.3465    ndcg@5 : 0.1686    ndcg@10 : 0.2019    mrr@5 : 0.1444    mrr@10 : 0.158
+Wed 04 Jun 2025 16:56:47 INFO  epoch 76 training [time: 76.91s, train loss: 2264.2380]
+Wed 04 Jun 2025 16:56:47 INFO  epoch 76 evaluating [time: 0.18s, valid_score: 0.203800]
+Wed 04 Jun 2025 16:56:47 INFO  valid result: 
+hit@5 : 0.2472    hit@10 : 0.35    ndcg@5 : 0.1707    ndcg@10 : 0.2038    mrr@5 : 0.1455    mrr@10 : 0.1592
+Wed 04 Jun 2025 16:58:04 INFO  epoch 77 training [time: 76.90s, train loss: 2263.9295]
+Wed 04 Jun 2025 16:58:04 INFO  epoch 77 evaluating [time: 0.18s, valid_score: 0.202300]
+Wed 04 Jun 2025 16:58:04 INFO  valid result: 
+hit@5 : 0.2457    hit@10 : 0.3483    ndcg@5 : 0.1691    ndcg@10 : 0.2023    mrr@5 : 0.144    mrr@10 : 0.1577
+Wed 04 Jun 2025 16:59:21 INFO  epoch 78 training [time: 76.91s, train loss: 2262.9285]
+Wed 04 Jun 2025 16:59:21 INFO  epoch 78 evaluating [time: 0.18s, valid_score: 0.203900]
+Wed 04 Jun 2025 16:59:21 INFO  valid result: 
+hit@5 : 0.2442    hit@10 : 0.3502    ndcg@5 : 0.1696    ndcg@10 : 0.2039    mrr@5 : 0.1451    mrr@10 : 0.1592
+Wed 04 Jun 2025 17:00:38 INFO  epoch 79 training [time: 76.90s, train loss: 2262.4767]
+Wed 04 Jun 2025 17:00:38 INFO  epoch 79 evaluating [time: 0.18s, valid_score: 0.202300]
+Wed 04 Jun 2025 17:00:38 INFO  valid result: 
+hit@5 : 0.2457    hit@10 : 0.3485    ndcg@5 : 0.1691    ndcg@10 : 0.2023    mrr@5 : 0.1439    mrr@10 : 0.1575
+Wed 04 Jun 2025 17:01:55 INFO  epoch 80 training [time: 76.90s, train loss: 2262.6217]
+Wed 04 Jun 2025 17:01:55 INFO  epoch 80 evaluating [time: 0.18s, valid_score: 0.201600]
+Wed 04 Jun 2025 17:01:55 INFO  valid result: 
+hit@5 : 0.243    hit@10 : 0.3485    ndcg@5 : 0.1677    ndcg@10 : 0.2016    mrr@5 : 0.143    mrr@10 : 0.1568
+Wed 04 Jun 2025 17:03:12 INFO  epoch 81 training [time: 76.90s, train loss: 2261.6624]
+Wed 04 Jun 2025 17:03:12 INFO  epoch 81 evaluating [time: 0.18s, valid_score: 0.203200]
+Wed 04 Jun 2025 17:03:12 INFO  valid result: 
+hit@5 : 0.244    hit@10 : 0.3493    ndcg@5 : 0.1695    ndcg@10 : 0.2032    mrr@5 : 0.1449    mrr@10 : 0.1587
+Wed 04 Jun 2025 17:04:29 INFO  epoch 82 training [time: 76.91s, train loss: 2261.2111]
+Wed 04 Jun 2025 17:04:29 INFO  epoch 82 evaluating [time: 0.18s, valid_score: 0.202800]
+Wed 04 Jun 2025 17:04:29 INFO  valid result: 
+hit@5 : 0.2513    hit@10 : 0.348    ndcg@5 : 0.1717    ndcg@10 : 0.2028    mrr@5 : 0.1456    mrr@10 : 0.1583
+Wed 04 Jun 2025 17:05:46 INFO  epoch 83 training [time: 76.90s, train loss: 2260.7513]
+Wed 04 Jun 2025 17:05:46 INFO  epoch 83 evaluating [time: 0.18s, valid_score: 0.204600]
+Wed 04 Jun 2025 17:05:46 INFO  valid result: 
+hit@5 : 0.2482    hit@10 : 0.35    ndcg@5 : 0.1717    ndcg@10 : 0.2046    mrr@5 : 0.1466    mrr@10 : 0.1601
+Wed 04 Jun 2025 17:07:03 INFO  epoch 84 training [time: 76.90s, train loss: 2260.7655]
+Wed 04 Jun 2025 17:07:03 INFO  epoch 84 evaluating [time: 0.19s, valid_score: 0.202800]
+Wed 04 Jun 2025 17:07:03 INFO  valid result: 
+hit@5 : 0.2437    hit@10 : 0.3495    ndcg@5 : 0.1687    ndcg@10 : 0.2028    mrr@5 : 0.1441    mrr@10 : 0.1581
+Wed 04 Jun 2025 17:08:20 INFO  epoch 85 training [time: 76.90s, train loss: 2260.5505]
+Wed 04 Jun 2025 17:08:21 INFO  epoch 85 evaluating [time: 0.19s, valid_score: 0.203000]
+Wed 04 Jun 2025 17:08:21 INFO  valid result: 
+hit@5 : 0.248    hit@10 : 0.344    ndcg@5 : 0.1721    ndcg@10 : 0.203    mrr@5 : 0.1471    mrr@10 : 0.1597
+Wed 04 Jun 2025 17:09:37 INFO  epoch 86 training [time: 76.90s, train loss: 2260.1036]
+Wed 04 Jun 2025 17:09:38 INFO  epoch 86 evaluating [time: 0.19s, valid_score: 0.204300]
+Wed 04 Jun 2025 17:09:38 INFO  valid result: 
+hit@5 : 0.249    hit@10 : 0.3478    ndcg@5 : 0.1725    ndcg@10 : 0.2043    mrr@5 : 0.1473    mrr@10 : 0.1603
+Wed 04 Jun 2025 17:10:55 INFO  epoch 87 training [time: 76.91s, train loss: 2259.2624]
+Wed 04 Jun 2025 17:10:55 INFO  epoch 87 evaluating [time: 0.18s, valid_score: 0.206200]
+Wed 04 Jun 2025 17:10:55 INFO  valid result: 
+hit@5 : 0.2454    hit@10 : 0.3525    ndcg@5 : 0.1715    ndcg@10 : 0.2062    mrr@5 : 0.1472    mrr@10 : 0.1615
+Wed 04 Jun 2025 17:10:55 INFO  Saving current: saved/RecGRELA-Jun-04-2025_15-17-51.pth
+Wed 04 Jun 2025 17:12:12 INFO  epoch 88 training [time: 76.91s, train loss: 2259.1168]
+Wed 04 Jun 2025 17:12:12 INFO  epoch 88 evaluating [time: 0.19s, valid_score: 0.202500]
+Wed 04 Jun 2025 17:12:12 INFO  valid result: 
+hit@5 : 0.247    hit@10 : 0.3465    ndcg@5 : 0.1703    ndcg@10 : 0.2025    mrr@5 : 0.1451    mrr@10 : 0.1584
+Wed 04 Jun 2025 17:13:29 INFO  epoch 89 training [time: 76.90s, train loss: 2258.5382]
+Wed 04 Jun 2025 17:13:29 INFO  epoch 89 evaluating [time: 0.18s, valid_score: 0.202300]
+Wed 04 Jun 2025 17:13:29 INFO  valid result: 
+hit@5 : 0.2465    hit@10 : 0.3465    ndcg@5 : 0.1701    ndcg@10 : 0.2023    mrr@5 : 0.1451    mrr@10 : 0.1583
+Wed 04 Jun 2025 17:14:46 INFO  epoch 90 training [time: 76.90s, train loss: 2258.5621]
+Wed 04 Jun 2025 17:14:46 INFO  epoch 90 evaluating [time: 0.18s, valid_score: 0.205300]
+Wed 04 Jun 2025 17:14:46 INFO  valid result: 
+hit@5 : 0.245    hit@10 : 0.3505    ndcg@5 : 0.1711    ndcg@10 : 0.2053    mrr@5 : 0.1468    mrr@10 : 0.1609
+Wed 04 Jun 2025 17:16:03 INFO  epoch 91 training [time: 76.90s, train loss: 2258.5376]
+Wed 04 Jun 2025 17:16:03 INFO  epoch 91 evaluating [time: 0.18s, valid_score: 0.202600]
+Wed 04 Jun 2025 17:16:03 INFO  valid result: 
+hit@5 : 0.2447    hit@10 : 0.3487    ndcg@5 : 0.169    ndcg@10 : 0.2026    mrr@5 : 0.1441    mrr@10 : 0.158
+Wed 04 Jun 2025 17:17:20 INFO  epoch 92 training [time: 76.90s, train loss: 2256.9516]
+Wed 04 Jun 2025 17:17:20 INFO  epoch 92 evaluating [time: 0.18s, valid_score: 0.205100]
+Wed 04 Jun 2025 17:17:20 INFO  valid result: 
+hit@5 : 0.248    hit@10 : 0.3507    ndcg@5 : 0.172    ndcg@10 : 0.2051    mrr@5 : 0.1469    mrr@10 : 0.1605
+Wed 04 Jun 2025 17:18:37 INFO  epoch 93 training [time: 76.90s, train loss: 2257.2690]
+Wed 04 Jun 2025 17:18:37 INFO  epoch 93 evaluating [time: 0.18s, valid_score: 0.203500]
+Wed 04 Jun 2025 17:18:37 INFO  valid result: 
+hit@5 : 0.2498    hit@10 : 0.347    ndcg@5 : 0.1723    ndcg@10 : 0.2035    mrr@5 : 0.1468    mrr@10 : 0.1596
+Wed 04 Jun 2025 17:19:54 INFO  epoch 94 training [time: 76.90s, train loss: 2256.9310]
+Wed 04 Jun 2025 17:19:54 INFO  epoch 94 evaluating [time: 0.18s, valid_score: 0.203500]
+Wed 04 Jun 2025 17:19:54 INFO  valid result: 
+hit@5 : 0.2447    hit@10 : 0.348    ndcg@5 : 0.1702    ndcg@10 : 0.2035    mrr@5 : 0.1457    mrr@10 : 0.1593
+Wed 04 Jun 2025 17:21:11 INFO  epoch 95 training [time: 76.90s, train loss: 2255.9812]
+Wed 04 Jun 2025 17:21:11 INFO  epoch 95 evaluating [time: 0.18s, valid_score: 0.204000]
+Wed 04 Jun 2025 17:21:11 INFO  valid result: 
+hit@5 : 0.2487    hit@10 : 0.3487    ndcg@5 : 0.1718    ndcg@10 : 0.204    mrr@5 : 0.1465    mrr@10 : 0.1598
+Wed 04 Jun 2025 17:22:28 INFO  epoch 96 training [time: 76.91s, train loss: 2255.5237]
+Wed 04 Jun 2025 17:22:29 INFO  epoch 96 evaluating [time: 0.18s, valid_score: 0.206900]
+Wed 04 Jun 2025 17:22:29 INFO  valid result: 
+hit@5 : 0.2452    hit@10 : 0.3495    ndcg@5 : 0.1732    ndcg@10 : 0.2069    mrr@5 : 0.1495    mrr@10 : 0.1634
+Wed 04 Jun 2025 17:22:29 INFO  Saving current: saved/RecGRELA-Jun-04-2025_15-17-51.pth
+Wed 04 Jun 2025 17:23:45 INFO  epoch 97 training [time: 76.89s, train loss: 2255.5449]
+Wed 04 Jun 2025 17:23:46 INFO  epoch 97 evaluating [time: 0.18s, valid_score: 0.201900]
+Wed 04 Jun 2025 17:23:46 INFO  valid result: 
+hit@5 : 0.2437    hit@10 : 0.3482    ndcg@5 : 0.1681    ndcg@10 : 0.2019    mrr@5 : 0.1432    mrr@10 : 0.1572
+Wed 04 Jun 2025 17:25:03 INFO  epoch 98 training [time: 76.90s, train loss: 2255.0776]
+Wed 04 Jun 2025 17:25:03 INFO  epoch 98 evaluating [time: 0.18s, valid_score: 0.202400]
+Wed 04 Jun 2025 17:25:03 INFO  valid result: 
+hit@5 : 0.2485    hit@10 : 0.3498    ndcg@5 : 0.1698    ndcg@10 : 0.2024    mrr@5 : 0.144    mrr@10 : 0.1573
+Wed 04 Jun 2025 17:26:20 INFO  epoch 99 training [time: 76.90s, train loss: 2254.9932]
+Wed 04 Jun 2025 17:26:20 INFO  epoch 99 evaluating [time: 0.18s, valid_score: 0.204200]
+Wed 04 Jun 2025 17:26:20 INFO  valid result: 
+hit@5 : 0.2482    hit@10 : 0.3528    ndcg@5 : 0.1705    ndcg@10 : 0.2042    mrr@5 : 0.145    mrr@10 : 0.1587
+Wed 04 Jun 2025 17:27:37 INFO  epoch 100 training [time: 76.90s, train loss: 2254.5184]
+Wed 04 Jun 2025 17:27:37 INFO  epoch 100 evaluating [time: 0.18s, valid_score: 0.205100]
+Wed 04 Jun 2025 17:27:37 INFO  valid result: 
+hit@5 : 0.2469    hit@10 : 0.3536    ndcg@5 : 0.1705    ndcg@10 : 0.2051    mrr@5 : 0.1454    mrr@10 : 0.1597
+Wed 04 Jun 2025 17:28:54 INFO  epoch 101 training [time: 76.90s, train loss: 2254.6339]
+Wed 04 Jun 2025 17:28:54 INFO  epoch 101 evaluating [time: 0.18s, valid_score: 0.203800]
+Wed 04 Jun 2025 17:28:54 INFO  valid result: 
+hit@5 : 0.2505    hit@10 : 0.3523    ndcg@5 : 0.171    ndcg@10 : 0.2038    mrr@5 : 0.1448    mrr@10 : 0.1583
+Wed 04 Jun 2025 17:30:11 INFO  epoch 102 training [time: 76.90s, train loss: 2254.5502]
+Wed 04 Jun 2025 17:30:11 INFO  epoch 102 evaluating [time: 0.18s, valid_score: 0.205400]
+Wed 04 Jun 2025 17:30:11 INFO  valid result: 
+hit@5 : 0.2474    hit@10 : 0.3513    ndcg@5 : 0.1719    ndcg@10 : 0.2054    mrr@5 : 0.147    mrr@10 : 0.1608
+Wed 04 Jun 2025 17:31:28 INFO  epoch 103 training [time: 76.90s, train loss: 2253.6143]
+Wed 04 Jun 2025 17:31:28 INFO  epoch 103 evaluating [time: 0.18s, valid_score: 0.204200]
+Wed 04 Jun 2025 17:31:28 INFO  valid result: 
+hit@5 : 0.245    hit@10 : 0.3469    ndcg@5 : 0.1714    ndcg@10 : 0.2042    mrr@5 : 0.1472    mrr@10 : 0.1607
+Wed 04 Jun 2025 17:32:45 INFO  epoch 104 training [time: 76.90s, train loss: 2253.8031]
+Wed 04 Jun 2025 17:32:45 INFO  epoch 104 evaluating [time: 0.18s, valid_score: 0.203100]
+Wed 04 Jun 2025 17:32:45 INFO  valid result: 
+hit@5 : 0.2493    hit@10 : 0.3495    ndcg@5 : 0.1708    ndcg@10 : 0.2031    mrr@5 : 0.145    mrr@10 : 0.1582
+Wed 04 Jun 2025 17:34:02 INFO  epoch 105 training [time: 76.90s, train loss: 2252.7562]
+Wed 04 Jun 2025 17:34:02 INFO  epoch 105 evaluating [time: 0.18s, valid_score: 0.204300]
+Wed 04 Jun 2025 17:34:02 INFO  valid result: 
+hit@5 : 0.2505    hit@10 : 0.3498    ndcg@5 : 0.1723    ndcg@10 : 0.2043    mrr@5 : 0.1467    mrr@10 : 0.1598
+Wed 04 Jun 2025 17:35:19 INFO  epoch 106 training [time: 76.90s, train loss: 2252.7451]
+Wed 04 Jun 2025 17:35:19 INFO  epoch 106 evaluating [time: 0.20s, valid_score: 0.205300]
+Wed 04 Jun 2025 17:35:19 INFO  valid result: 
+hit@5 : 0.2477    hit@10 : 0.3523    ndcg@5 : 0.1714    ndcg@10 : 0.2053    mrr@5 : 0.1463    mrr@10 : 0.1604
+Wed 04 Jun 2025 17:36:36 INFO  epoch 107 training [time: 76.91s, train loss: 2252.1524]
+Wed 04 Jun 2025 17:36:36 INFO  epoch 107 evaluating [time: 0.18s, valid_score: 0.203900]
+Wed 04 Jun 2025 17:36:36 INFO  valid result: 
+hit@5 : 0.2462    hit@10 : 0.3503    ndcg@5 : 0.1702    ndcg@10 : 0.2039    mrr@5 : 0.1453    mrr@10 : 0.1592
+Wed 04 Jun 2025 17:37:53 INFO  epoch 108 training [time: 76.91s, train loss: 2251.3272]
+Wed 04 Jun 2025 17:37:54 INFO  epoch 108 evaluating [time: 0.18s, valid_score: 0.202400]
+Wed 04 Jun 2025 17:37:54 INFO  valid result: 
+hit@5 : 0.2459    hit@10 : 0.3457    ndcg@5 : 0.1702    ndcg@10 : 0.2024    mrr@5 : 0.1453    mrr@10 : 0.1585
+Wed 04 Jun 2025 17:39:10 INFO  epoch 109 training [time: 76.90s, train loss: 2251.4819]
+Wed 04 Jun 2025 17:39:11 INFO  epoch 109 evaluating [time: 0.18s, valid_score: 0.204600]
+Wed 04 Jun 2025 17:39:11 INFO  valid result: 
+hit@5 : 0.2464    hit@10 : 0.3469    ndcg@5 : 0.1722    ndcg@10 : 0.2046    mrr@5 : 0.1478    mrr@10 : 0.1612
+Wed 04 Jun 2025 17:40:28 INFO  epoch 110 training [time: 76.91s, train loss: 2251.2399]
+Wed 04 Jun 2025 17:40:28 INFO  epoch 110 evaluating [time: 0.18s, valid_score: 0.203200]
+Wed 04 Jun 2025 17:40:28 INFO  valid result: 
+hit@5 : 0.2472    hit@10 : 0.3483    ndcg@5 : 0.1705    ndcg@10 : 0.2032    mrr@5 : 0.1453    mrr@10 : 0.1588
+Wed 04 Jun 2025 17:41:45 INFO  epoch 111 training [time: 76.90s, train loss: 2250.7594]
+Wed 04 Jun 2025 17:41:45 INFO  epoch 111 evaluating [time: 0.18s, valid_score: 0.205900]
+Wed 04 Jun 2025 17:41:45 INFO  valid result: 
+hit@5 : 0.2482    hit@10 : 0.3518    ndcg@5 : 0.1724    ndcg@10 : 0.2059    mrr@5 : 0.1475    mrr@10 : 0.1613
+Wed 04 Jun 2025 17:43:02 INFO  epoch 112 training [time: 76.90s, train loss: 2250.7992]
+Wed 04 Jun 2025 17:43:02 INFO  epoch 112 evaluating [time: 0.18s, valid_score: 0.204600]
+Wed 04 Jun 2025 17:43:02 INFO  valid result: 
+hit@5 : 0.2455    hit@10 : 0.3522    ndcg@5 : 0.1702    ndcg@10 : 0.2046    mrr@5 : 0.1454    mrr@10 : 0.1596
+Wed 04 Jun 2025 17:44:19 INFO  epoch 113 training [time: 76.89s, train loss: 2250.8157]
+Wed 04 Jun 2025 17:44:19 INFO  epoch 113 evaluating [time: 0.18s, valid_score: 0.203200]
+Wed 04 Jun 2025 17:44:19 INFO  valid result: 
+hit@5 : 0.2493    hit@10 : 0.3493    ndcg@5 : 0.1709    ndcg@10 : 0.2032    mrr@5 : 0.1452    mrr@10 : 0.1584
+Wed 04 Jun 2025 17:45:36 INFO  epoch 114 training [time: 76.90s, train loss: 2250.1520]
+Wed 04 Jun 2025 17:45:36 INFO  epoch 114 evaluating [time: 0.18s, valid_score: 0.205100]
+Wed 04 Jun 2025 17:45:36 INFO  valid result: 
+hit@5 : 0.2472    hit@10 : 0.3522    ndcg@5 : 0.1714    ndcg@10 : 0.2051    mrr@5 : 0.1464    mrr@10 : 0.1603
+Wed 04 Jun 2025 17:46:53 INFO  epoch 115 training [time: 76.90s, train loss: 2249.6727]
+Wed 04 Jun 2025 17:46:53 INFO  epoch 115 evaluating [time: 0.18s, valid_score: 0.203300]
+Wed 04 Jun 2025 17:46:53 INFO  valid result: 
+hit@5 : 0.249    hit@10 : 0.3483    ndcg@5 : 0.1711    ndcg@10 : 0.2033    mrr@5 : 0.1455    mrr@10 : 0.1588
+Wed 04 Jun 2025 17:48:10 INFO  epoch 116 training [time: 76.90s, train loss: 2249.4000]
+Wed 04 Jun 2025 17:48:10 INFO  epoch 116 evaluating [time: 0.18s, valid_score: 0.205800]
+Wed 04 Jun 2025 17:48:10 INFO  valid result: 
+hit@5 : 0.2477    hit@10 : 0.3526    ndcg@5 : 0.1719    ndcg@10 : 0.2058    mrr@5 : 0.147    mrr@10 : 0.1609
+Wed 04 Jun 2025 17:49:27 INFO  epoch 117 training [time: 76.89s, train loss: 2249.8344]
+Wed 04 Jun 2025 17:49:27 INFO  epoch 117 evaluating [time: 0.18s, valid_score: 0.203800]
+Wed 04 Jun 2025 17:49:27 INFO  valid result: 
+hit@5 : 0.2505    hit@10 : 0.3475    ndcg@5 : 0.1724    ndcg@10 : 0.2038    mrr@5 : 0.1468    mrr@10 : 0.1598
+Wed 04 Jun 2025 17:49:27 INFO  Finished training, best eval result in epoch 96
+Wed 04 Jun 2025 17:49:27 INFO  Loading model structure and parameters from saved/RecGRELA-Jun-04-2025_15-17-51.pth
+Wed 04 Jun 2025 17:49:29 INFO  The running environment of this training is as follows:
++-------------+-----------------+
+| Environment |      Usage      |
++=============+=================+
+| CPU         |     0.40 %      |
++-------------+-----------------+
+| GPU         | 12.70 G/23.64 G |
++-------------+-----------------+
+| Memory      | 5.94 G/62.53 G  |
++-------------+-----------------+
+Wed 04 Jun 2025 17:49:29 INFO  best valid : OrderedDict([('hit@5', 0.2452), ('hit@10', 0.3495), ('ndcg@5', 0.1732), ('ndcg@10', 0.2069), ('mrr@5', 0.1495), ('mrr@10', 0.1634)])
+Wed 04 Jun 2025 17:49:29 INFO  test result: OrderedDict([('hit@5', 0.2364), ('hit@10', 0.3311), ('ndcg@5', 0.1653), ('ndcg@10', 0.1959), ('mrr@5', 0.1419), ('mrr@10', 0.1545)])
