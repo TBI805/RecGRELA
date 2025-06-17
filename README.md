@@ -21,7 +21,7 @@ Here are our main environment dependencies for running the repository：
 
 ### 3. Datasets
 
-This repository have contained ML-1M dataset. If you want to train our model on other datasets, the ML-20M and Netflix datasets can be downloaded from [RecSysDatasets](https://github.com/RUCAIBox/RecSysDatasets). ML-32M can be found at [MovieLens](https://grouplens.org/datasets/movielens/) and processed by [conversion tools](https://github.com/RUCAIBox/RecDatasets/tree/master/conversion_tools).
+This repository have contained ML-1M dataset. If you want to train our model on other datasets, the ML-20M, ML-32M, and Netflix datasets can be downloaded from [Google Drive](https://drive.google.com/drive/folders/188p9b-OkI1IZfg248AvkqFNiuHkRVdrJ?usp=sharing). ML-32M can also be found at [MovieLens](https://grouplens.org/datasets/movielens/) and processed by [conversion tools](https://github.com/RUCAIBox/RecDatasets/tree/master/conversion_tools).
 
 ### 4. Run
 
