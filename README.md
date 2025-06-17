@@ -33,6 +33,17 @@ python run_RecGRELA.py
 ### 5. Results
 You can also check the training log in[`📁 log`](log/).
 
+## 6. References
+If you find this code useful or use the toolkit in your work, please consider citing:
+```
+@article{hu2025gatedrotaryenhancedlinearattention,
+      title={Gated Rotary-Enhanced Linear Attention for Long-term Sequential Recommendation}, 
+      author={Juntao Hu and Wei Zhou and Huayi Shen and Xiao Du and Jie Liao and Junhao Wen and Min Gao},
+      journal={arXiv preprint arXiv:2506.13315},
+      year={2025}
+}
+```
+
 ## Acknowledgment
 
 Our code references [RecBole](https://github.com/RUCAIBox/RecBole), [Mamba4Rec](https://github.com/chengkai-liu/Mamba4Rec), and [Causal-Conv1d](https://github.com/Dao-AILab/causal-conv1d). We appreciate their outstanding work and open source. 
