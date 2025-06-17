@@ -1,6 +1,6 @@
 # RecGRELA
 
-This repository contains the reference code for the paper **Gated Rotary-Enhanced Linear Attention for Long-term Sequential Recommendation**.
+This repository contains the reference code for the paper **Gated Rotary-Enhanced Linear Attention for Long-term Sequential Recommendation**. The paper is released on [arXiv](https://arxiv.org/abs/2506.13315).
 
 ## 1. Overall
 
