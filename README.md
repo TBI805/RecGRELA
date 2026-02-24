@@ -36,4 +36,4 @@ You can also check the training log in[`📁 log`](log/).
 
 ## Acknowledgment
 
-Our code references [RecBole](https://github.com/RUCAIBox/RecBole), [Mamba4Rec](https://github.com/chengkai-liu/Mamba4Rec). 
+Our code references [RecBole](https://github.com/RUCAIBox/RecBole), [Mamba4Rec](https://github.com/chengkai-liu/Mamba4Rec). We appreciate their outstanding work.
