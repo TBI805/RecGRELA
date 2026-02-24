@@ -5,7 +5,7 @@ This repository contains the reference code for the paper **Gated Rotary-Enhance
 ## 1. Overall
 
 <p align="center">
-    <img src="img/figure.png" alt="overview_of_RecGRELA"/>
+    <img src="img/overall.png" alt="overview_of_RecGRELA"/>
   </p>
 
 ### 2. Requirements
