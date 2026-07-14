@@ -1,0 +1,107 @@
+gpu_id: '0'
+log_wandb: False
+
+seed: 2020
+reproducibility: True
+
+n_layers: 2                     # (int) The number of transformer layers in transformer encoder.
+n_heads: 8                      # (int) The number of attention heads for multi-head attention layer.
+hidden_size: 64                 # (int) The number of features in the hidden state.
+inner_size: 256                 # (int) The inner hidden size in feed-forward layer.
+hidden_dropout_prob: 0.1        # (float) The probability of an element to be zeroed.
+hidden_act: 'gelu'              # (str) The activation function in feed-forward layer.
+layer_norm_eps: 1e-12           # (float) A value added to the denominator for numerical stability.
+initializer_range: 0.02         # (float) The standard deviation for normal initialization.
+loss_type: 'CE'                 # (str) The type of loss function. Range in ['BPR', 'CE'].
+c: 5
+freq_dropout_prob: 0.1
+kernel_size: 7
+conv_layers: 1
+use_layernorm: True
+contrast: None
+num_bands: 4
+top_k: 6
+alpha: 0.1
+beta: 0.2
+
+# dataset settings
+dataset: ml-1m
+MAX_ITEM_LIST_LENGTH: 200
+
+#dataset: amazon-video-rating
+#MAX_ITEM_LIST_LENGTH: 50
+
+#dataset: ml-20m
+#MAX_ITEM_LIST_LENGTH: 50
+
+#dataset: gowalla-m
+#MAX_ITEM_LIST_LENGTH: 50
+
+#dataset: amazon-sports-rating
+#MAX_ITEM_LIST_LENGTH: 50
+
+#dataset: amazon-beauty-rating
+#MAX_ITEM_LIST_LENGTH: 50
+
+#dataset: amazon-toys-rating
+#MAX_ITEM_LIST_LENGTH: 50
+
+#dataset: yelp
+#MAX_ITEM_LIST_LENGTH: 50
+
+#dataset: steam
+#MAX_ITEM_LIST_LENGTH: 50
+##
+#USER_ID_FIELD: user_id
+#ITEM_ID_FIELD: product_id
+#load_col:
+#    inter: [user_id, product_id, timestamp]
+
+# Netflix dateset
+#dataset: netflix
+#MAX_ITEM_LIST_LENGTH: 200
+#USER_ID_FIELD: user_id
+#ITEM_ID_FIELD: item_id
+#load_col:
+#    inter: [item_id, user_id, timestamp]
+#
+#user_inter_num_interval: "[50,inf)"
+#item_inter_num_interval: "[50,15000]"
+
+
+USER_ID_FIELD: user_id
+ITEM_ID_FIELD: item_id
+load_col:
+    inter: [user_id, item_id, timestamp]
+
+user_inter_num_interval: "[5,inf)"
+item_inter_num_interval: "[5,inf)"
+
+# LFM1b-Artists dateset
+#dataset: lfm1b-artists
+#MAX_ITEM_LIST_LENGTH: 100
+#
+#USER_ID_FIELD: user_id
+#ITEM_ID_FIELD: artists_id
+#load_col:
+#    inter: [user_id, artists_id, timestamp]
+#
+#user_inter_num_interval: "[5,150]"
+#item_inter_num_interval: "[5,inf)"
+
+
+# training settings
+epochs: 300
+train_batch_size: 2048
+learner: adam
+learning_rate: 0.001
+eval_step: 1
+stopping_step: 20
+train_neg_sample_args: ~
+
+# evalution settings
+metrics: ['Hit', 'NDCG', 'MRR']
+valid_metric: NDCG@10
+eval_batch_size: 2048
+weight_decay: 0.0
+topk: [5, 10]
