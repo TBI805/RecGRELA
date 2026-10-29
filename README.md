@@ -1,6 +1,6 @@
 # RecGRELA
 
-This repository contains the reference code for the paper **Gated Rotary-Enhanced Linear Attention with Rank Modulation for Long-term Sequential Recommendation**. (Accepted by Expert Systems with Applications)
+This repository contains the reference code for the paper _[Gated Rotary-Enhanced Linear Attention with Rank Modulation for Long-term Sequential Recommendation]((https://www.sciencedirect.com/science/article/abs/pii/S0957417426037929))_. (Accepted by Expert Systems with Applications)
 
 ## 1. Overall
 
