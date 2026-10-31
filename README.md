@@ -49,6 +49,6 @@ If you find this work useful, please cite it as:
     journal = {Expert Systems with Applications},
     volume = {334},
     pages = {134889},
-    year = {2027},
+    year = {2027}
 }
 ```
