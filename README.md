@@ -36,4 +36,18 @@ You can also check the training log in[`📁 log`](log/).
 
 ## Acknowledgment
 
-Our code references [RecBole](https://github.com/RUCAIBox/RecBole), [Mamba4Rec](https://github.com/chengkai-liu/Mamba4Rec). We appreciate their outstanding works.
+Our code references [RecBole](https://github.com/RUCAIBox/RecBole), [Mamba4Rec](https://github.com/chengkai-liu/Mamba4Rec). We appreciate their outstanding work.
+
+## Citation
+
+If you find this work useful, please cite it as:
+
+```bibtex
+@article{HU2027134889,
+    title = {Gated rotary-enhanced linear attention with rank modulation for long-term sequential recommendation},
+    journal = {Expert Systems with Applications},
+    volume = {334},
+    pages = {134889},
+    year = {2027},
+}
+```
