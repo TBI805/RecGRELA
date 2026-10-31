@@ -44,6 +44,7 @@ If you find this work useful, please cite it as:
 
 ```bibtex
 @article{HU2027134889,
+    author = {Juntao Hu and Wei Zhou and Haini Cai and Xiao Du and Huayi Shen and Junhao Wen},
     title = {Gated rotary-enhanced linear attention with rank modulation for long-term sequential recommendation},
     journal = {Expert Systems with Applications},
     volume = {334},
